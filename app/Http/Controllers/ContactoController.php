@@ -22,8 +22,13 @@ class ContactoController extends Controller
             'mensaje' => 'required|string',
         ]);
 
-        Mensaje::create($validated);
+        $mensaje = Mensaje::create($validated);
 
-        return redirect()->back()->with('success', 'Mensaje enviado correctamente.');
+        return redirect()->route('contacto.gracias', $mensaje);
+    }
+
+    public function gracias(Mensaje $mensaje)
+    {
+        return view('contacto.enviado', ['mensaje' => $mensaje]);
     }
 }
